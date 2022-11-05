@@ -1,5 +1,5 @@
-#FROM php:8-alpine 
 FROM php:7.4.33-alpine
+
 RUN set -eux ; \
   apk add --no-cache --virtual .composer-rundeps \
     bash \
@@ -40,6 +40,7 @@ RUN set -eux ; \
   install-php-extensions \
     bz2 \
     zip \
+    gd \
   ; \
   # install public keys for snapshot and tag validation, see https://composer.github.io/pubkeys.html
   curl \
@@ -81,6 +82,9 @@ RUN set -eux ; \
   composer diagnose ; \
   rm -f /tmp/installer.php ; \
   find /tmp -type d -exec chmod -v 1777 {} +
+
+
+
 
 #COPY docker-entrypoint.sh /docker-entrypoint.sh
 
